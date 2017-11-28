@@ -13,16 +13,18 @@ public class TripService {
 	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
 		List<Trip> tripList = new ArrayList<>();
 
-		User loggedUser = Optional
-                            .ofNullable(getLoggedUser())
-                            .orElseThrow(UserNotLoggedInException::new);
-
-        if (isFriend(user, loggedUser)) {
+        if (isFriend(user, loggedUser())) {
             tripList = findTripsByUser(user);
         }
 
         return tripList;
 	}
+
+    private User loggedUser() {
+        return (User) Optional
+                .ofNullable(getLoggedUser())
+                .orElseThrow(UserNotLoggedInException::new);
+    }
 
     private boolean isFriend(User user, User loggedUser) {
         return user
