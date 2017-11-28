@@ -25,16 +25,10 @@ public class TripService {
 	}
 
     private boolean isFriend(User user, User loggedUser) {
-        boolean isFriend = false;
-
-        for (User friend : user.getFriends()) {
-            if (friend.equals(loggedUser)) {
-                isFriend = true;
-                break;
-            }
-        }
-
-        return isFriend;
+        return user
+                .getFriends()
+                .stream()
+                .anyMatch((friend) -> friend.equals(loggedUser));
     }
 
     protected List<Trip> findTripsByUser(User user) {
