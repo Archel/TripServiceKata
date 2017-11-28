@@ -4,6 +4,7 @@ import org.craftedsw.tripservicekata.exception.UserNotLoggedInException;
 import org.craftedsw.tripservicekata.user.User;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -30,15 +31,15 @@ public class TripServiceShould {
     }
 
     @Test
-    public void returns_nothing_if_a_users_friend_has_no_trips() {
-        List<Trip> friendTrips = null;
+    public void return_the_friends_trips() {
+        List<Trip> friendTrips = Collections.emptyList();
         TripService tripService = new TestableTripService(loggedInUser, friendTrips);
         tripService.getTripsByUser(loggedInUser);
         User friend = new User();
         friend.addFriend(loggedInUser);
         List<Trip> trips = tripService.getTripsByUser(friend);
 
-        assertNull(trips);
+        assertSame(friendTrips, trips);
     }
 
 }
