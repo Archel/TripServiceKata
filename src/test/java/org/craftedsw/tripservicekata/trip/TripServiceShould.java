@@ -32,10 +32,10 @@ public class TripServiceShould {
 
     @Test
     public void return_the_friends_trips() {
-        List<Trip> friendTrips = Collections.emptyList();
-        TripService tripService = new TestableTripService(loggedInUser, friendTrips);
-        tripService.getTripsByUser(loggedInUser);
         User friend = new User();
+        List<Trip> friendTrips = Collections.emptyList();
+        TripService tripService = new TestableTripService(loggedInUser, friendTrips, friend);
+        tripService.getTripsByUser(loggedInUser);
         friend.addFriend(loggedInUser);
         List<Trip> trips = tripService.getTripsByUser(friend);
 

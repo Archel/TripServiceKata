@@ -8,14 +8,20 @@ public class TestableTripService extends TripService {
 
     private final User loggedInUser;
     private final List<Trip> tripList;
+    private final User friend;
 
     public TestableTripService(User loggedInUser) {
-        this(loggedInUser, null);
+        this(loggedInUser, null, null);
     }
 
     public TestableTripService(User loggedInUser, List<Trip> tripList) {
+        this(loggedInUser, tripList, null);
+    }
+
+    public TestableTripService(User loggedInUser, List<Trip> tripList, User friend) {
         this.loggedInUser = loggedInUser;
         this.tripList = tripList;
+        this.friend = friend;
     }
 
     @Override
@@ -25,6 +31,10 @@ public class TestableTripService extends TripService {
 
     @Override
     protected List<Trip> findTripsByUser(User user) {
-        return tripList;
+        if (friend == user) {
+            return tripList;
+        }
+
+        return null;
     }
 }
