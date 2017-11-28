@@ -9,7 +9,7 @@ public class TripServiceShould {
 
     @Test(expected = UserNotLoggedInException.class)
     public void not_return_trips_if_the_user_is_not_logged_in() {
-        TripService tripService = new TestableTripService();
+        TripService tripService = new TestableTripService(null);
         tripService.getTripsByUser(null);
     }
 
