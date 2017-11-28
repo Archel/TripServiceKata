@@ -29,4 +29,16 @@ public class TripServiceShould {
         assertEquals(0, trips.size());
     }
 
+    @Test
+    public void returns_nothing_if_a_users_friend_has_no_trips() {
+        List<Trip> friendTrips = null;
+        TripService tripService = new TestableTripService(loggedInUser, friendTrips);
+        tripService.getTripsByUser(loggedInUser);
+        User friend = new User();
+        friend.addFriend(loggedInUser);
+        List<Trip> trips = tripService.getTripsByUser(friend);
+
+        assertNull(trips);
+    }
+
 }
